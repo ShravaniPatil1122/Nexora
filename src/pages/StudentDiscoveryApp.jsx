@@ -654,7 +654,7 @@ function SettingsPage({ onBack }) {
 // App shell
 // ---------------------------------------------------------------------------
 
-export default function App() {
+export default function StudentDiscoveryApp() {
   const [screen, setScreen] = useState("welcome");
   const [profileSub, setProfileSub] = useState(null);
   const [name, setName] = useState("");
@@ -681,7 +681,16 @@ export default function App() {
     );
   } else if (screen === "dashboard") {
     content = (
-      <Dashboard name={name} hasHistory={hasHistory} onStartFirstTime={() => setHasHistory(true)} setScreen={goProfile} />
+      <Dashboard name={name} hasHistory={hasHistory} onStartFirstTime={() => setHasHistory(true)} 
+      setScreen={(screen) => {
+  if (screen === "explore") {
+    onExplore();
+  } else if (screen === "roadmap") {
+    onRoadmap();
+  } else {
+    goProfile(screen);
+  }
+}} />
     );
   } else if (screen === "explore") {
     content = (
